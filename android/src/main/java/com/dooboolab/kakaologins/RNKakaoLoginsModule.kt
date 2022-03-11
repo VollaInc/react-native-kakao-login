@@ -86,15 +86,15 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
 
     @ReactMethod
     private fun loginWithKakaoAccount(promise: Promise) {
-        UserApiClient.instance.loginWithKakaoAccount(reactContext) { token, error: Throwable? ->
+        UserApiClient.instance.loginWithKakaoAccount(reactContext) InnerLoginWithKakaoAccount@ { token, error: Throwable? ->
             if (error != null) {
                 promise.reject("RNKakaoLogins", error.message, error)
-                return@loginWithKakaoAccount
+                return@InnerLoginWithKakaoAccount
             }
 
             if (token == null) {
                 promise.reject("RNKakaoLogins", "Token is null")
-                return@loginWithKakaoAccount
+                return@InnerLoginWithKakaoAccount
             }
 
             if (token != null) {
@@ -112,7 +112,7 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 }
                 map.putArray("scopes", scopeArray)
                 promise.resolve(map)
-                return@loginWithKakaoAccount
+                return@InnerLoginWithKakaoAccount
             }
         }
     }

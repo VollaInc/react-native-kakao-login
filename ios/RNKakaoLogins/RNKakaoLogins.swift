@@ -17,7 +17,7 @@ class RNKakaoLogins: NSObject {
 
     public override init() {
         let appKey: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
-        KakaoSDKCommon.initSDK(appKey: appKey!)
+        KakaoSDK.initSDK(appKey: appKey!)
     }
 
     @objc
@@ -28,7 +28,7 @@ class RNKakaoLogins: NSObject {
     @objc(isKakaoTalkLoginUrl:)
     public static func isKakaoTalkLoginUrl(url:URL) -> Bool {
 
-        let appKey = try? KakaoSDKCommon.shared.appKey();
+        let appKey = try? KakaoSDK.shared.appKey();
 
         if (appKey != nil) {
             return AuthApi.isKakaoTalkLoginUrl(url)
